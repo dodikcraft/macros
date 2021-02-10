@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+
+\usepackage[dvipdfm]{graphicx}
+\usepackage[russian]{babel}
+\usepackage{fontspec}
+\usepackage[left=20mm,top=25mm,right=15mm,bottom=15mm,headsep=6pt,headheight=22pt]{geometry}
+\usepackage{longtable, tabu, caption, setspace}
+\usepackage{fancyhdr}
+\usepackage[at]{easylist}
+
+\pagestyle{fancy}
+
+\setmainfont{Times New Roman}
+\setmonofont{Go Mono}
+
+\setlength{\parindent}{1.25cm}
+\linespread{1.5}
+
+% Списки
+
+%% Список с буллетами
+\def\bullist{
+	\ListProperties(
+	%Hide=100,
+	Hang=true,
+	Progressive*=.65cm,
+	Margin=1.25cm,
+	Align=fixed,
+	%iq 3000 move: скрываем номера \фантом'ом, и вместо них пихаем буллеты
+	Style*={\scshape$\bullet$\phantom},
+	% АХАХАХАХ СУКА ЭТО СРАБОТАЛО
+	% ну почти.. второй уровень косячит. для демо хватит.
+	% TODO уровни после
+	)
+}
+
+%% Нумерованный список
+\def\numlist{
+	\ListProperties(
+	Hang=true,
+	Progressive*=.65cm,
+	Margin=1.25cm,
+	Align=fixed,
+}
+
+% Колонтитулы
+% TODO номер страницы должен отступать от основного текста
+\newcommand*\sethdr[2] {
+	\fancyhf{}
+	\fancyhead[C]{
+		\fontsize{12pt}{0pt}\selectfont
+		\thepage
+	}
+	\fancyhead[L]{\vspace{12pt}\fontsize{10pt}{0pt}\selectfont\it #1}
+	\fancyhead[C]{
+		\fontsize{12pt}{0pt}\selectfont
+		\thepage
+	}
+	\fancyhead[R]{\vspace{12pt}\fontsize{10pt}{0pt}\selectfont\it #2}
+}
+
+\newcommand*\unpart[1]{
+	% TODO 12пт в начале
+	\newpage
+	\vspace{6pt}
+	%\vspace как всегда ведет себя как долбоёб...
+	%\vskip не лучше
+	% короче ебаный латех не хочет мне вставлять 12 пунктов отступа сразу после page break
+	\noindent
+	\centerline{\bf\uppercase{#1}}
+	\vskip 12pt
+	\addcontentsline{toc}{part}{#1}
+}
+
+\renewcommand{\thepart}{\arabic{part}}
+
+\renewcommand*\part[1]{
+	\newpage
+	\addtocounter{part}{1}
+	\vspace{6pt}
+	\noindent
+	% а хули арабик не работает?
+	% похуй, туду
+	\centerline{\bf\uppercase{{\thepart}\ #1}}
+	\vskip 12pt
+    	\addcontentsline{toc}{part}{#1}
+}
+
+% Настройка таблиц
+%\tabulinesep=_12pt
+\renewcommand{\thetable}{\thepart.\arabic{table}}
+\captionsetup[table]{singlelinecheck=false,justification=raggedright,position=top,%
+	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
+	%skip=6pt
+	}
+\def\cch{\multicolumn{1}{|c|}}
+\def\cct{\multicolumn{1}{c|}}
+\def\nr{\\\hline}
+
