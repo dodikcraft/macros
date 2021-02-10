@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage[dvipdfm]{graphicx}
 \usepackage[russian]{babel}
@@ -59,6 +59,8 @@
 	\fancyhead[R]{\vspace{12pt}\fontsize{10pt}{0pt}\selectfont\it #2}
 }
 
+\renewcommand{\thepart}{\arabic{part}}
+
 \newcommand*\unpart[1]{
 	% TODO 12пт в начале
 	\newpage
@@ -72,26 +74,43 @@
 	\addcontentsline{toc}{part}{#1}
 }
 
-\renewcommand{\thepart}{\arabic{part}}
-
+% TODO мб звёздочка лишняя?
 \renewcommand*\part[1]{
 	\newpage
 	\addtocounter{part}{1}
+    	\addcontentsline{toc}{part}{#1}
 	\vspace{6pt}
 	\noindent
-	% а хули арабик не работает?
-	% похуй, туду
 	\centerline{\bf\uppercase{{\thepart}\ #1}}
 	\vskip 12pt
-    	\addcontentsline{toc}{part}{#1}
+}
+
+\renewcommand*\section[1]{
+	\addtocounter{section}{1}
+	\addcontentsline{toc}{section}{#1}
+	\vspace{12pt}
+	\noindent
+	\hspace* {.5cm}
+	{\raggedright\bf\thepart.\thesection\ #1}
+	\vskip 12pt
+}
+
+\renewcommand*\subsection[1]{
+	\addtocounter{subsection}{1}
+	\addcontentsline{toc}{paragraph}{#1}
+	\vspace{6pt}
+	\noindent
+	\hspace* {.75cm}
+	{\raggedright\bf\thepart.\thesubsection\ #1}
+	\vskip 6pt
 }
 
 % Настройка таблиц
-%\tabulinesep=_12pt
+\tabulinesep=_12pt
 \renewcommand{\thetable}{\thepart.\arabic{table}}
 \captionsetup[table]{singlelinecheck=false,justification=raggedright,position=top,%
 	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
-	%skip=6pt
+	skip=-6pt
 	}
 \def\cch{\multicolumn{1}{|c|}}
 \def\cct{\multicolumn{1}{c|}}
