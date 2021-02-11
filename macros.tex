@@ -4,7 +4,11 @@
 \usepackage[russian]{babel}
 \usepackage{fontspec}
 \usepackage[left=20mm,top=25mm,right=15mm,bottom=15mm,headsep=6pt,headheight=22pt]{geometry}
-\usepackage{longtable, tabu, caption, setspace}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{caption}
+\usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage[at]{easylist}
 
@@ -14,7 +18,18 @@
 \setmonofont{Go Mono}
 
 \setlength{\parindent}{1.25cm}
-\linespread{1.5}
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\smallskip}{\vskip{6pt}}
+\renewcommand{\medskip}{\vskip{6pt}}
+\renewcommand{\bigskip}{\vskip{12pt}}
+%\setlength{\skip}{0}
+\frenchspacing
+
+\def\nohyphen{
+	\pretolerance=10000
+	\tolerance=2000 
+	\emergencystretch=10pt
+}
 
 % Списки
 
@@ -86,40 +101,65 @@
 }
 
 \renewcommand*\section[1]{
-	\addtocounter{section}{1}
-	\addcontentsline{toc}{section}{#1}
-	\vspace{12pt}
-	\noindent
-	\hspace* {.5cm}
-	{\raggedright\bf\thepart.\thesection\ #1}
-	\vskip 12pt
+	{
+		\nohyphen
+		\linespread{1}
+		\addtocounter{section}{1}
+		\addcontentsline{toc}{section}{#1}
+		\vspace{12pt}
+		\noindent
+		\hspace* {.5cm}
+		{\raggedright\bf\thepart.\thesection\ #1}
+		\vskip 12pt
+	}
 }
 
 \renewcommand*\subsection[1]{
-	\addtocounter{subsection}{1}
-	\addcontentsline{toc}{paragraph}{#1}
-	\vspace{6pt}
-	\noindent
-	\hspace* {.75cm}
-	{\raggedright\bf\thepart.\thesubsection\ #1}
-	\vskip 6pt
+	{
+		\nohyphen
+		\linespread{1}
+		\addtocounter{subsection}{1}
+		\addcontentsline{toc}{paragraph}{#1}
+		\vspace{6pt}
+		\noindent
+		\hspace* {.75cm}
+		{\raggedright\bf\thepart.\thesubsection\ #1}
+		\vskip 6pt
+	}
 }
 
 % Настройка таблиц
-\tabulinesep=_12pt
+\tabulinesep=_6pt
 \renewcommand{\thetable}{\thepart.\arabic{table}}
 \captionsetup[table]{singlelinecheck=false,justification=raggedright,position=top,%
 	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
-	skip=-6pt
+	skip=6pt,belowskip=0pt
 	}
 \def\cch{\multicolumn{1}{|c|}}
 \def\cct{\multicolumn{1}{c|}}
 \def\nr{\\\hline}
+\newcommand*\autohead[2]{
+	#1\endfirsthead
+	\caption*{Продолжение таблицы \ref{#2}}\nr
+	#1
+	\endhead
+}
 
 % Иллюстрации
+\DeclareCaptionLabelFormat{myfig}{Рисунок #2}
 \captionsetup[figure]{singlelinecheck=false,justification=centering,position=bottom,%
-	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
-	%skip=-6pt
+	format=plain,font={rm,onehalfspacing},labelformat=myfig,labelsep=endash,indention=0pt,%
+	skip=6pt,belowskip=0pt
 	}
-\renewcommand{\figurename}{Рисунок}
 \renewcommand{\thefigure}{\thepart.\arabic{figure}}
+
+\addto{\captionsrussian}{
+	\renewcommand*{\contentsname}{
+		\noindent
+		\centerline{\bf\uppercase{Содержание}}
+		\vskip 12pt
+	}
+}
+
+\setlength{\belowcaptionskip}{-10pt}
+\setlength{\textfloatsep}{6pt}

@@ -1,9 +1,14 @@
 \input{macros.tex}
-\usepackage{framed}
+\usepackage{mdframed}
+%\usepackage{xcolor}
+%\usepackage[grid, gridunit=pt, gridcolor=blue!40, subgridcolor=blue!20]{eso-pic}
 
 \sethdr{Кафедра АСОИУ}{Требования к оформлению студенческих работ}
 
 \begin{document}
+
+\tableofcontents
+
 \unpart{Введение}
 
 В настоящее время получение высшего профессионального образования подразумевает
@@ -103,16 +108,16 @@
 
 Значения полей для различных видов документации приведены в таблице \ref{fields}.
 
-% на таблице я сдался.
-\begin{longtabu}{|X[5]|X[1]|X[1]|X[1]|X[1]|} \caption{Значения полей для различных видов документации}\\\hline
-	\cch {Вид документации} & Левое & Верхнее & Правое & Нижнее \nr
+\begin{longtabu}{|X[7]|X[1]|X[1]|X[1]|X[1]|} \caption{Значения полей для различных видов документации}\\\hline
+	\multirow{2}{*}{Вид документации} & \multicolumn{4}{c|}{Ширина полей, мм} \\
+	\cline{2-5} & Левое & Верхнее & Правое & Нижнее \nr
 	Курсовой проект, курсовая работа, отчёт по практике & 20 & 25 & 15 & 15 \nr
 	ВКР бакалавров & 35 & 25 & 20 & 25 \nr
 	ВКР магистров & 20 & 20 & 10 & 20 \label{fields}\nr
 \end{longtabu}
 
 Допускается представлять иллюстрации, таблицы и распечатки с компьютера на листах
-формата А3 с соблюдением полей, указанных в таблице 1.1.
+формата А3 с соблюдением полей, указанных в таблице \ref{fields}.
 
 Для ВКР специалистов и бакалавров на каждом листе должен размещаться штамп учета
 и хранения в соответствии с ГОСТ 19.602-78 и ГОСТ 19.601-78.
@@ -162,16 +167,18 @@
 кафедре АСОИУ представлены на рисунке \ref{headers}.
 
 % TODO \captionsetup[figure]{...}
-\begin{figure}[h]
-	\begin{framed}
+\begin{figure}[!ht]
+	\fbox{\parbox{\linewidth}{
 		\setlength{\parindent}{1.25cm}
 		\linespread{1.5}
 		\centerline{\bf\uppercase{1 Технический проект}}
 		\centerline{\bf\uppercase{2 Рабочий проект}}
 		\centerline{\bf\uppercase{3 Программа и методика испытаний}}
-	\end{framed}
-	\caption{Заголовки разделов}
-	\label{headers}
+	}}
+	\label{headers}\caption{Заголовки разделов}
+	\vspace{-16pt} % я хз че они блять там курили и почему отступы плывут
+	% нет, настройка длин не помогает. вообще.
+	
 \end{figure}
 
 Если заголовок состоит из нескольких предложений, то в конце каждого предложения
@@ -201,10 +208,10 @@
 		{\raggedright\bf #1}
 		\vskip 6pt
 	}
-	\begin{framed}
+	\fbox{\parbox{\linewidth}{
 		% TODO тут полуторный интервал просрался...
 		\setlength{\parindent}{1.25cm}
-		\linespread{1.5}
+		\onehalfspacing
 		\ttt{1.1 Описание предметной области}
 		В этом подразделе необходимо привести все нужные понятия, определения, факты,
 		математические (или другие) модели, позволяющие получить понятие о проектируемой
@@ -219,7 +226,7 @@
 		
 		\ttt{3.4 Проверка работоспособности подсистемы «Демонстрация численного дифференцирования»}
 		Так выглядит заголовок подраздела, если его длина более одной строки
-	\end{framed}
+	}}
 	\caption{Заголовки подразделов}
 	\label{subsects}
 \end{figure}
@@ -265,9 +272,9 @@
 табуляция после 1,9 см, отступ 1,9 см (рис. 1.3).
 
 \begin{figure}[h]
-	\begin{framed}
+	\begin{mdframed}
 		\centerline{TODO}
-	\end{framed}
+	\end{mdframed}
 	\caption{Форматирование перечислений в MS Word}
 	\label{subsects}
 \end{figure}
@@ -286,9 +293,9 @@
 дальнейшая детализация, можно использовать многоуровневый список либо увеличить отступ
 
 \begin{figure}[h]
-	\begin{framed}
-		\centerline{TODO, не я ебал easylist...}
-	\end{framed}
+	\begin{mdframed}
+		\centerline{TODO не, я ебал easylist...}
+	\end{mdframed}
 	\caption{Вложенные перечисления}
 	\label{subsects}
 \end{figure}
@@ -319,9 +326,9 @@
 абзацного отступа. Таблица отделяется от основного текста отступами 6 пт.
 
 \begin{figure}[h]
-	\begin{framed}
+	\begin{mdframed}
 		\centerline{TODO заюзать TikZ что ле...}
-	\end{framed}
+	\end{mdframed}
 	\caption{Оформление таблицы}
 	\label{subsects}
 \end{figure}
@@ -369,7 +376,7 @@
 составляют случаи, аналогичные приведённому в таблице \ref{struct}.
 
 \begin{longtabu}{|X[1]|X[1]|} \caption{Структура таблицы}\\\hline
-	\cch {\bf Название} & \cct {\bf Диапазон значений}\nr
+	\autohead{\cch {\bf Название} & \cct {\bf Диапазон значений}\nr}{struct}
 	Количество специальностей & \centerline{30 -- 40} \nr 
 	Количество групп & \centerline{3 - 5} \nr
 	Количество дисциплин & \centerline{5 - 10} \nr
@@ -447,7 +454,7 @@
 
 Для сокращения текста заголовков и подзаголовков колонок и строк отдельные понятия
 можно заменять буквенными обозначениями, если они пояснены в тексте или приведены на
-иллюстрациях, например: {\bf ХD} -- диаметр, {\bf H} --  высота, {\bf L} -- длина.
+иллюстрациях, например: {\bf D} -- диаметр, {\bf H} --  высота, {\bf L} -- длина.
 
 Показатели с одним и тем же буквенным обозначением группируют последовательно, в
 порядке возрастания индексов, например: {\bf L}, {\bf L1},{\bf L2} и т.д.
@@ -491,9 +498,9 @@
 Пример оформления иллюстрации с подрисуночным текстом приведен на рис. \ref{figsample}.
 
 \begin{figure}[h]
-	\begin{framed}
+	\begin{mdframed}
 		\centerline{TODO}
-	\end{framed}
+	\end{mdframed}
 	\caption{Граф}
 	\label{figsample}
 \end{figure}
@@ -502,9 +509,9 @@
 приведен на рис. \ref{figsample2}.
 
 \begin{figure}[h]
-	\begin{framed}
+	\begin{mdframed}
 		\centerline{TODO}
-	\end{framed}
+	\end{mdframed}
 	\centerline{1 -- входной поток}
 	\centerline{2 -- выходной поток}
 	\caption{Организация сборки изделия}
