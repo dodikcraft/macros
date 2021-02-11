@@ -116,3 +116,10 @@
 \def\cct{\multicolumn{1}{c|}}
 \def\nr{\\\hline}
 
+% Иллюстрации
+\captionsetup[figure]{singlelinecheck=false,justification=centering,position=bottom,%
+	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
+	%skip=-6pt
+	}
+\renewcommand{\figurename}{Рисунок}
+\renewcommand{\thefigure}{\thepart.\arabic{figure}}
