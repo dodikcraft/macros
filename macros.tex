@@ -14,14 +14,17 @@
 
 \pagestyle{fancy}
 
+%\setmainfont{CMU Serif}
+\setmathrm{Times New Roman}
+\setmathsf{CMU Classical Serif}
 \setmainfont{Times New Roman}
 \setmonofont{Go Mono}
 
 \setlength{\parindent}{1.25cm}
 \renewcommand{\baselinestretch}{1.5}
-\renewcommand{\smallskip}{\vskip{6pt}}
-\renewcommand{\medskip}{\vskip{6pt}}
-\renewcommand{\bigskip}{\vskip{12pt}}
+\renewcommand{\smallskip}{\vskip 6pt}
+\renewcommand{\medskip}{\vskip 6pt}
+\renewcommand{\bigskip}{\vskip 12pt}
 %\setlength{\skip}{0}
 \frenchspacing
 
@@ -54,8 +57,10 @@
 	\ListProperties(
 	Hang=true,
 	Progressive*=.65cm,
+	FinalSpace=.25cm,
 	Margin=1.25cm,
 	Align=fixed,
+	)
 }
 
 % Колонтитулы
@@ -76,7 +81,7 @@
 
 \renewcommand{\thepart}{\arabic{part}}
 
-\newcommand*\unpart[1]{
+\newcommand*\npart[1]{
 	% TODO 12пт в начале
 	\newpage
 	\vspace{6pt}
@@ -104,13 +109,13 @@
 	{
 		\nohyphen
 		\linespread{1}
-		\addtocounter{section}{1}
+		\addtocounter{section}{1}{part}
 		\addcontentsline{toc}{section}{#1}
-		\vspace{12pt}
+		\vspace{6pt}
 		\noindent
 		\hspace* {.5cm}
 		{\raggedright\bf\thepart.\thesection\ #1}
-		\vskip 12pt
+		\vskip 6pt
 	}
 }
 
@@ -118,7 +123,7 @@
 	{
 		\nohyphen
 		\linespread{1}
-		\addtocounter{subsection}{1}
+		\addtocounter{subsection}{1}{section}
 		\addcontentsline{toc}{paragraph}{#1}
 		\vspace{6pt}
 		\noindent
@@ -130,6 +135,7 @@
 
 % Настройка таблиц
 \tabulinesep=_6pt
+\setlength{\LTcapwidth}{0pt}
 \renewcommand{\thetable}{\thepart.\arabic{table}}
 \captionsetup[table]{singlelinecheck=false,justification=raggedright,position=top,%
 	format=plain,font={rm,onehalfspacing},labelsep=endash,indention=0pt,%
@@ -160,6 +166,13 @@
 		\vskip 12pt
 	}
 }
+
+\newenvironment{12pt}{
+	\bigskip
+}{
+	\bigskip
+}
+
 
 \setlength{\belowcaptionskip}{-10pt}
 \setlength{\textfloatsep}{6pt}
